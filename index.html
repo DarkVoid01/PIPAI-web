@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PipAI - Your Ultimate AI Trading Partner</title>
+<meta name="description" content="Trade Smarter, Faster, and More Profitably with PipAI">
+<link rel="shortcut icon" href="/logo-05.png" type="image/x-icon">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        darkMode: ["class"],
+        theme: {
+            extend: {
+                colors: {
+                    background: "#000000",
+                },
+            },
+        },
+    }
+</script>
+<style>
+    @font-face {
+        font-family: font;
+        src: url(/Conthrax-SemiBold.otf);
+    }
+    @font-face {
+        font-family: para;
+        src: url(/raleway.regular.ttf);
+    }
+    .text-font {
+        font-family: font, sans-serif;
+    }
+    .para {
+        font-family: para, sans-serif;
+    }
+    html, body {
+        overflow-x: hidden;
+        background-color: #000000;
+        color: white;
+    }
+    
+    /* Grid background with animated gradient */
+    .grid-bg {
+        background-color: #000000;
+        background-image: 
+            linear-gradient(rgba(50, 50, 50, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(50, 50, 50, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+        position: relative;
+    }
+    
+    .grid-bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at center, rgba(132, 70, 207, 0.15), transparent 70%);
+        pointer-events: none;
+    }
+    
+    /* Card styles */
+    .card-dark {
+        background-color: #0A0A0A;
+        border: 1px solid #333333;
+        border-radius: 4px;
+        box-shadow: 0 4px 20px rgba(132, 70, 207, 0.1);
+    }
+    
+    .card-purple {
+        background-color: #120821;
+        border: 1px solid #8446CF;
+        border-radius: 4px;
+        box-shadow: 0 4px 20px rgba(132, 70, 207, 0.3);
+    }
+    
+    /* Button styles */
+    .btn-primary {
+        background-color: #8446CF;
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 4px;
+        font-family: font, sans-serif;
+        display: inline-block;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-primary::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: 0.5s;
+    }
+    
+    .btn-primary:hover {
+        background-color: #9b5ede;
+        transform: translateY(-2px);
+    }
+    
+    .btn-primary:hover::after {
+        left: 100%;
+    }
+    
+    .btn-secondary {
+        background-color: transparent;
+        color: #8446CF;
+        border: 1px solid #8446CF;
+        padding: 0.75rem 2rem;
+        border-radius: 4px;
+        font-family: font, sans-serif;
+        display: inline-block;
+        transition: all 0.3s;
+    }
+    
+    .btn-secondary:hover {
+        background-color: rgba(132, 70, 207, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    /* Screenshots slider */
+    .screenshot-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease;
+    }
+    .screenshot {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .screenshot.active {
+        opacity: 1;
+    }
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .dot.active {
+        background-color: #8446CF;
+    }
+    
+    /* Accordion */
+    .accordion-header {
+        cursor: pointer;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    .accordion-content.active {
+        max-height: 500px;
+    }
+    .accordion-icon {
+        transition: transform 0.3s ease;
+    }
+    .accordion-header.active .accordion-icon {
+        transform: rotate(180deg);
+    }
+    
+    /* Timeline */
+    .timeline-dot {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: #8446CF;
+        position: relative;
+    }
+    .timeline-dot::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: white;
+    }
+    .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #8446CF, #2D1B87);
+        transform: translateX(-50%);
+    }
+    
+    /* Mobile menu */
+    .mobile-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(8px);
+        padding: 1rem 0;
+        z-index: 50;
+    }
+    .mobile-menu.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    /* Fix for roadmap items on mobile */
+    @media (max-width: 768px) {
+        .roadmap-item {
+            height: auto !important;
+            min-height: 200px;
+            margin-bottom: 40px;
+        }
+        
+        .roadmap-card {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+    }
+    
+    /* Glow effects */
+    .text-glow {
+        text-shadow: 0 0 10px rgba(132, 70, 207, 0.5);
+    }
+    
+    .box-glow {
+        box-shadow: 0 0 15px rgba(132, 70, 207, 0.3);
+    }
+    
+    /* Animated background */
+    .animated-bg {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .animated-bg::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(132, 70, 207, 0.1), transparent 70%);
+        animation: rotate 20s linear infinite;
+        z-index: -1;
+    }
+    
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+</head>
+<body class="bg-black animated-bg">
+<!-- Navbar -->
+<nav class="bg-transparent backdrop-blur-sm text-white fixed w-full z-50">
+    <div class="flex justify-between items-center py-6 md:p-12 mx-6 md:mx-8">
+        <!-- Logo -->
+        <div>
+            <a href="#">
+                <img src="/Logo.png" width="112" height="40" alt="PipAI Logo">
+            </a>
+        </div>
+
+        <!-- Hamburger Menu (Mobile) -->
+        <div class="md:hidden">
+            <button id="menu-toggle" class="text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex space-x-8 text-font text-white">
+            <ul class="flex flex-row space-x-8">
+                <li><a href="#" class="text-[#8446CF] hover:text-[#9a5de0] transition-colors">Home</a></li>
+                <li><a href="#features" class="hover:text-[#8446CF] transition-colors">Features</a></li>
+                <li><a href="#benefits" class="hover:text-[#8446CF] transition-colors">Why Pip AI</a></li>
+                <li><a href="#how-it-works" class="hover:text-[#8446CF] transition-colors">How it Works</a></li>
+            </ul>
+        </div>
+
+        <!-- Contact Button -->
+        <div class="hidden md:block">
+            <a href="#contact" class="btn-primary">
+                Contact us
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+        <a href="#" class="hover:text-[#8446CF] py-2">Home</a>
+        <a href="#features" class="hover:text-[#8446CF] py-2">Features</a>
+        <a href="#benefits" class="hover:text-[#8446CF] py-2">Why Pip AI</a>
+        <a href="#how-it-works" class="hover:text-[#8446CF] py-2">How it Works</a>
+        <a href="#contact" class="btn-primary mt-4">
+            Contact us
+        </a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="grid-bg h-screen w-full bg-center bg-no-repeat relative" id="hero">
+    <div class="pt-36 md:pt-0 md:flex md:items-center md:h-screen md:justify-between px-8 md:px-28 max-w-7xl mx-auto">
+        <div class=" flex flex-col items-center" data-aos="fade-up">
+            <h1 class="text-font md:text-5xl text-4xl text-white text-center  mb-8 text-glow">
+                Welcome to PiPAI<br>
+                Your Ultimate AI Trading <span class="text-[#8446CF]">Partner</span>
+            </h1>
+            
+            <p class="text-white/80 text-center  mb-8 para">
+                Harness the power of AI to trade smarter, faster, and more profitably. PipAI is your intelligent trading assistant, delivering real-time insights, predictive analytics, and automated strategies to keep you ahead of the market.
+            </p>
+            
+            
+            <div class="flex flex-col ite sm:flex-row gap-4 mt-4">
+                <a href="#about" class="btn-primary">
+                    Let's Get Started
+                </a>
+                
+                <a href="https://docs.pipai.io" class="btn-secondary">
+                    Learn More
+                </a>
+            </div>
+        </div>
+        
+        <!-- <div class="hidden md:block md:w-1/2" data-aos="fade-left">
+            <div class="relative w-full h-[600px]">
+                <img src="./Logo.png" alt="PipAI Bot Interface" class="object-contain w-full h-full">
+            </div>
+        </div> -->
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="grid-bg py-24 w-full">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <h2 class="text-white text-4xl text-center text-font mb-16 text-glow" data-aos="fade-up">
+            Our <span class="text-[#8446CF]">Features</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+<div class="card-dark shadow-lg h-full box-glow" data-aos="fade-up">
+    <div class="p-6">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="w-16 h-16 flex items-center justify-center">
+                <img src="/icon-1.png" width="64" height="64" alt="Precision Analysis and Predictions">
+            </div>
+            <h3 class="text-white text-xl text-font">Precision Analysis and Predictions</h3>
+        </div>
+        <p class="text-white/80 mb-6 para">Simply upload your charts or share links, and let PipAI do the heavy lifting. Our AI identifies key technical patterns using Ai and ML functions providing you with actionable predictions and confidence scores to keep you ahead of market movements.​</p>
+        <a href="#" class="text-[#8446CF] inline-flex items-center px-4 py-2 text-sm font-medium hover:text-[#9b5ede] transition-colors">
+            Learn more 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 h-4 w-4">
+                <path d="m9 18 6-6-6-6"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<!-- Feature 2 -->
+<div class="card-purple shadow-lg h-full" data-aos="fade-up" data-aos-delay="200">
+    <div class="p-6">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="w-16 h-16 flex items-center justify-center">
+                <img src="/icon-2.png" width="64" height="64" alt="Real-Time Sentiment Analysis">
+            </div>
+            <h3 class="text-white text-xl text-font">Real-Time Sentiment Analysis</h3>
+        </div>
+        <p class="text-white/80 mb-6 para">Stay informed with PipAI's ability to scan social media and news platforms, delivering insights into market sentiment that can influence price fluctuations. Receive sentiment-driven alerts to make well-informed trading decisions.​</p>
+        <a href="#" class="text-[#8446CF] inline-flex items-center px-4 py-2 text-sm font-medium hover:text-[#9b5ede] transition-colors">
+            Learn more 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 h-4 w-4">
+                <path d="m9 18 6-6-6-6"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<!-- Feature 3 -->
+<div class="card-dark shadow-lg h-full box-glow" data-aos="fade-up" data-aos-delay="400">
+    <div class="p-6">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="w-16 h-16 flex items-center justify-center">
+                <img src="/icon-3.png" width="64" height="64" alt="Whale Activity Alerts">
+            </div>
+            <h3 class="text-white text-xl text-font">Whale Activity Alerts</h3>
+        </div>
+        <p class="text-white/80 mb-6 para">Be the first to know about significant wallet activities that could impact the market. PipAI notifies you of large-scale buy or sell actions, enabling you to anticipate major price swings and strategize accordingly.​</p>
+        <a href="#" class="text-[#8446CF] inline-flex items-center px-4 py-2 text-sm font-medium hover:text-[#9b5ede] transition-colors">
+            Learn more 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 h-4 w-4">
+                <path d="m9 18 6-6-6-6"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<!-- Feature 4 -->
+<div class="card-purple shadow-lg h-full" data-aos="fade-up">
+    <div class="p-6">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="w-16 h-16 flex items-center justify-center">
+                <img src="/icon-4.png" width="64" height="64" alt="Customized Trading Strategies">
+            </div>
+            <h3 class="text-white text-xl text-font">Customized Trading Strategies</h3>
+        </div>
+        <p class="text-white/80 mb-6 para">Tailor your trading approach by setting preferences based on risk tolerance, timeframes, and preferred indicators. PipAI generates and refines strategies that align with your unique trading style.​</p>
+        <a href="#" class="text-[#8446CF] inline-flex items-center px-4 py-2 text-sm font-medium hover:text-[#9b5ede] transition-colors">
+            Learn more 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 h-4 w-4">
+                <path d="m9 18 6-6-6-6"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<!-- Feature 5 -->
+<div class="card-dark shadow-lg h-full box-glow" data-aos="fade-up" data-aos-delay="200">
+    <div class="p-6">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="w-16 h-16 flex items-center justify-center">
+                <img src="/icon-5.png" width="64" height="64" alt="Effortless Backtesting">
+            </div>
+            <h3 class="text-white text-xl text-font">Effortless Backtesting</h3>
+        </div>
+        <p class="text-white/80 mb-6 para">Evaluate your strategies using historical market data. PipAI provides comprehensive reports, including ROI, win rates, and drawdowns, allowing you to fine-tune your approach for optimal performance.​</p>
+        <a href="#" class="text-[#8446CF] inline-flex items-center px-4 py-2 text-sm font-medium hover:text-[#9b5ede] transition-colors">
+            Learn more 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 h-4 w-4">
+                <path d="m9 18 6-6-6-6"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<!-- Feature 6 -->
+<div class="card-purple shadow-lg h-full" data-aos="fade-up" data-aos-delay="400">
+    <div class="p-6">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="w-16 h-16 flex items-center justify-center">
+                <img src="/icon-6.png" width="64" height="64" alt="Automated Trade Execution">
+            </div>
+            <h3 class="text-white text-xl text-font">Automated Trade Execution</h3>
+        </div>
+        <p class="text-white/80 mb-6 para">PipAI allows for effortless trades executions securing profit for you why you focus on other important things.</p>
+        <a href="#" class="text-[#8446CF] inline-flex items-center px-4 py-2 text-sm font-medium hover:text-[#9b5ede] transition-colors">
+            Learn more 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 h-4 w-4">
+                <path d="m9 18 6-6-6-6"/>
+            </svg>
+        </a>
+    </div>
+</div>
+        </div>
+        
+        <!-- <div class="mt-16 flex justify-center">
+            <div class="relative w-full md:w-3/4 h-[500px] box-glow" data-aos="fade-up">
+                <img src="/feature-screenshot.png" alt="PipAI Feature Screenshot" class="object-contain rounded-md w-full h-full">
+            </div>
+        </div> -->
+    </div>
+</section>
+
+<!-- Screenshots Section -->
+<section id="screenshots" class="py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <h2 class="text-white text-4xl text-center text-font mb-16 text-glow" data-aos="fade-up">
+            App <span class="text-[#8446CF]">Screenshots</span>
+        </h2>
+        
+        <div class="relative" data-aos="fade-up">
+            <div class="flex justify-center items-center">
+                <button 
+                    id="prev-screenshot" 
+                    class="absolute left-0 z-10 text-white hover:bg-white/10 w-10 h-10 rounded-full flex items-center justify-center"
+                    aria-label="Previous screenshot"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6"/>
+                    </svg>
+                </button>
+                
+                <div class="relative w-[280px] md:w-[320px] h-[580px] md:h-[640px]">
+                    <!-- Phone frame -->
+                    <div class="absolute inset-0 w-full h-full z-10">
+                        <img src="/phone-frame.png" alt="Phone frame" class="w-full h-full object-contain">
+                    </div>
+                    
+                    <!-- Screenshots -->
+                    <div class="absolute inset-0 w-full h-full flex items-center justify-center">
+                        <div class="relative w-[250px] md:w-[280px] h-[500px] md:h-[560px] rounded-md overflow-hidden box-glow">
+                            <div id="screenshots-container" class="screenshot-container">
+                                <img src="/screenshot-1.png" alt="Chart Analysis" class="screenshot active w-full h-full object-cover" data-index="0">
+                                <img src="/screenshot-2.png" alt="Sentiment Analysis" class="screenshot w-full h-full object-cover" data-index="1">
+                                <img src="/screenshot-3.png" alt="Whale Tracking" class="screenshot w-full h-full object-cover" data-index="2">
+                                <img src="/screenshot-4.png" alt="Strategy Builder" class="screenshot w-full h-full object-cover" data-index="3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button 
+                    id="next-screenshot" 
+                    class="absolute right-0 z-10 text-white hover:bg-white/10 w-10 h-10 rounded-full flex items-center justify-center"
+                    aria-label="Next screenshot"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <h3 id="screenshot-caption" class="text-[#8446CF] text-xl text-font mb-2 text-glow">
+                    AI-Powered Chart Analysis
+                </h3>
+                <p id="screenshot-description" class="text-white/80 para">
+                    PipAI identifies key support and resistance levels with precision
+                </p>
+            </div>
+            
+            <div class="flex justify-center mt-6 space-x-2" id="screenshot-dots">
+                <div class="dot active" data-index="0"></div>
+                <div class="dot" data-index="1"></div>
+                <div class="dot" data-index="2"></div>
+                <div class="dot" data-index="3"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section id="benefits" class="py-24 grid-bg">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <h2 class="text-white text-4xl text-center text-font mb-16 text-glow" data-aos="fade-up">
+            Why <span class="text-[#8446CF]">Pip AI</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Benefit 1 -->
+<div class="card-dark shadow-lg h-full box-glow" data-aos="fade-up">
+    <div class="p-6">
+        <div class="mb-4">
+            <img src="/b-1.png" width="64" height="64" alt="Adaptive Learning">
+        </div>
+        <h3 class="text-white text-xl text-font mb-4">Adaptive Learning</h3>
+        <p class="text-white/80 para">PipAI evolves with you, learning from user feedback and market data to deliver increasingly accurate insights and strategies.​</p>
+    </div>
+</div>
+
+<!-- Benefit 2 -->
+<div class="card-purple shadow-lg h-full" data-aos="fade-up" data-aos-delay="200">
+    <div class="p-6">
+        <div class="mb-4">
+            <img src="/b-2.png" width="64" height="64" alt="User-Friendly Interface">
+        </div>
+        <h3 class="text-white text-xl text-font mb-4">User-Friendly Interface</h3>
+        <p class="text-white/80 para">Interact effortlessly using simple Telegram commands like /analyze_chart, /generate_strategy, and /portfolio_summary. The intuitive design ensures ease of use for traders at all levels.​</p>
+    </div>
+</div>
+
+<!-- Benefit 3 -->
+<div class="card-dark shadow-lg h-full box-glow" data-aos="fade-up" data-aos-delay="400">
+    <div class="p-6">
+        <div class="mb-4">
+            <img src="/b-3.png" width="64" height="64" alt="Robust Security">
+        </div>
+        <h3 class="text-white text-xl text-font mb-4">Robust Security</h3>
+        <p class="text-white/80 para">Your data's security is our priority. PipAI employs encrypted data storage and anonymization protocols, ensuring compliance with global trading regulations.</p>
+    </div>
+</div>
+        </div>
+    </div>
+</section>
+
+<!-- Roadmap Section -->
+<section id="roadmap" class="py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <h2 class="text-white text-4xl text-center text-font mb-16 text-glow" data-aos="fade-up">
+            Project <span class="text-[#8446CF]">Roadmap</span>
+        </h2>
+        
+        <div class="relative">
+            <!-- Vertical line (desktop only) -->
+            <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-[#333333] transform -translate-x-1/2 hidden md:block timeline-line"></div>
+            
+            <div class="space-y-12 relative">
+                <!-- Q1 2024 -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 roadmap-item" data-aos="fade-left">
+                    <div class="md:w-1/2 flex flex-col items-center md:items-end">
+                        <div class="p-6 rounded-md w-full max-w-md card-purple roadmap-card">
+                            <div class="flex items-center gap-2 mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                <h3 class="text-white text-xl text-font">Q1 2024</h3>
+                            </div>
+                            <h4 class="text-[#8446CF] text-lg mb-4">Launch Phase</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                        <polyline points="22 4 12 14.01 9 11.01"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Initial bot release on Telegram</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                        <polyline points="22 4 12 14.01 9 11.01"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Basic chart analysis features</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                        <polyline points="22 4 12 14.01 9 11.01"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Token launch and distribution</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline dot for desktop -->
+                    <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center w-8 h-8 rounded-full bg-[#8446CF] z-10 timeline-dot"></div>
+                    
+                    <div class="md:w-1/2"></div>
+                </div>
+
+                <!-- Q2 2024 -->
+                <div class="flex flex-col md:flex-row items-center gap-8 roadmap-item" data-aos="fade-right">
+                    <div class="md:w-1/2 flex flex-col items-center md:items-start">
+                        <div class="p-6 rounded-md w-full max-w-md card-dark border-[#8446CF] roadmap-card">
+                            <div class="flex items-center gap-2 mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FACC15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                                <h3 class="text-white text-xl text-font">Q2 2024</h3>
+                            </div>
+                            <h4 class="text-[#8446CF] text-lg mb-4">Growth Phase</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                        <polyline points="22 4 12 14.01 9 11.01"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Advanced sentiment analysis integration</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Whale tracking alerts implementation</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Partnership with major exchanges</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline dot for desktop -->
+                    <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center w-8 h-8 rounded-full bg-[#8446CF] z-10 timeline-dot"></div>
+                    
+                    <div class="md:w-1/2"></div>
+                </div>
+
+                <!-- Q3 2024 -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 roadmap-item" data-aos="fade-left">
+                    <div class="md:w-1/2 flex flex-col items-center md:items-end">
+                        <div class="p-6 rounded-md w-full max-w-md card-dark roadmap-card box-glow">
+                            <div class="flex items-center gap-2 mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                                <h3 class="text-white text-xl text-font">Q3 2024</h3>
+                            </div>
+                            <h4 class="text-[#8446CF] text-lg mb-4">Expansion Phase</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Automated trading features</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Custom strategy builder</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Mobile app beta release</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline dot for desktop -->
+                    <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center w-8 h-8 rounded-full bg-[#8446CF] z-10 timeline-dot"></div>
+                    
+                    <div class="md:w-1/2"></div>
+                </div>
+
+                <!-- Q4 2024 -->
+                <div class="flex flex-col md:flex-row items-center gap-8 roadmap-item" data-aos="fade-right">
+                    <div class="md:w-1/2 flex flex-col items-center md:items-start">
+                        <div class="p-6 rounded-md w-full max-w-md card-dark roadmap-card box-glow">
+                            <div class="flex items-center gap-2 mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                                <h3 class="text-white text-xl text-font">Q4 2024</h3>
+                            </div>
+                            <h4 class="text-[#8446CF] text-lg mb-4">Ecosystem Phase</h4>
+                            <ul class="space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Cross-platform integration</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Advanced AI model upgrades</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                    <span class="text-white/80 para">Governance features for token holders</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline dot for desktop -->
+                    <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center w-8 h-8 rounded-full bg-[#8446CF] z-10 timeline-dot"></div>
+                    
+                    <div class="md:w-1/2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tokenomics Section -->
+<section id="tokenomics" class="py-24 grid-bg">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <h2 class="text-white text-4xl text-center text-font mb-16 text-glow" data-aos="fade-up">
+            <span class="text-[#8446CF]">Tokenomics</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <div class="h-[400px] w-full" id="tokenomics-chart">
+                    <!-- Chart will be rendered here by JavaScript -->
+                </div>
+            </div>
+            
+            <div data-aos="fade-left">
+                <div class="card-dark rounded-md shadow-lg p-6 box-glow">
+                    <h3 class="text-white text-2xl text-font mb-6">Token Metrics</h3>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex justify-between items-center border-b border-[#333333] pb-2">
+                            <span class="text-white/70 para">Total Supply</span>
+                            <span class="text-white text-font">1,000,000,000 PAI</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-[#333333] pb-2">
+                            <span class="text-white/70 para">Initial Market Cap</span>
+                            <span class="text-white text-font">$500,000</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-[#333333] pb-2">
+                            <span class="text-white/70 para">Initial Circulating Supply</span>
+                            <span class="text-white text-font">400,000,000 PAI</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-[#333333] pb-2">
+                            <span class="text-white/70 para">Token Type</span>
+                            <span class="text-white text-font">BEP-20 / ERC-20</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-white text-2xl text-font mb-4">Token Utility</h3>
+                    <p class="text-white/80 para mb-4">
+                        The PipAI token powers the entire ecosystem, providing holders with access to premium features and voting rights on platform development. From launch day, token holders can use $PAI to access the bot's full capabilities - either independently for personal trading insights or within community groups to provide valuable token analytics.
+                    </p>
+                    <p class="text-white/80 para mb-6">
+                        Test the Bot Now and experience how PipAI delivers real-time sentiment analysis, whale tracking, and predictive analytics. Coming soon: staking rewards, governance features, and exclusive partner integrations that will expand the token's utility across the crypto ecosystem.
+                    </p>
+                    
+                    <a href="#" class="btn-primary w-full text-center">
+                        Test the Bot Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trader Types Section -->
+<section class="py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-font text-white text-3xl md:text-4xl mb-12 text-glow">
+                    Built for Every <span class="text-[#8446CF]">Trader</span>
+                </h2>
+                
+                <div class="space-y-12">
+                    <div>
+                        <h3 class="text-[#8446CF] text-font text-xl mb-3">Beginners</h3>
+                        <p class="text-white/80 para">
+                            Learn trading concepts with PipAI's interactive tutorials and mock trading features.
+                            Get step-by-step guidance and risk-free practice to build your confidence.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-[#8446CF] text-font text-xl mb-3">Advanced Traders</h3>
+                        <p class="text-white/80 para">
+                            Optimize your portfolio with sophisticated analytics and AI-driven automation.
+                            Leverage advanced technical indicators and custom strategy development.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-[#8446CF] text-font text-xl mb-3">Crypto Enthusiasts</h3>
+                        <p class="text-white/80 para">
+                            Leverage sentiment analysis and whale tracking to capture unique market opportunities.
+                            Stay ahead of trends with real-time alerts and community insights.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div data-aos="fade-left" class="flex justify-center">
+                <div class="relative w-full h-[500px] box-glow">
+                    <img src="/abt-2.png" alt="Trader types illustration" class="object-contain w-full h-full">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-24 grid-bg">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right" class="order-2 md:order-1">
+                <div class="relative w-full h-[500px] box-glow">
+                    <img src="/abt-3.png" alt="How it works illustration" class="object-contain w-full h-full">
+                </div>
+            </div>
+            
+            <div data-aos="fade-left" class="order-1 md:order-2">
+                <h2 class="text-font text-white text-3xl md:text-4xl mb-12 text-glow">
+                    How it <span class="text-[#8446CF]">Works</span>
+                </h2>
+                
+                <div class="space-y-8">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#8446CF] flex items-center justify-center text-white text-font">
+                            1
+                        </div>
+                        <div>
+                            <h3 class="text-[#8446CF] text-font text-xl mb-2">Join PipAI on Telegram</h3>
+                            <p class="text-white/80 para">Start with a simple click to access the bot.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#8446CF] flex items-center justify-center text-white text-font">
+                            2
+                        </div>
+                        <div>
+                            <h3 class="text-[#8446CF] text-font text-xl mb-2">Set Up Your Preferences</h3>
+                            <p class="text-white/80 para">Tailor your trading strategies based on your goals.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#8446CF] flex items-center justify-center text-white text-font">
+                            3
+                        </div>
+                        <div>
+                            <h3 class="text-[#8446CF] text-font text-xl mb-2">Analyze, Strategize, and Trade</h3>
+                            <p class="text-white/80 para">Let PipAI handle analysis, strategy generation, and automated execution.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#8446CF] flex items-center justify-center text-white text-font">
+                            4
+                        </div>
+                        <div>
+                            <h3 class="text-[#8446CF] text-font text-xl mb-2">Monitor and Optimize</h3>
+                            <p class="text-white/80 para">Stay updated with real-time alerts and performance reports.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Plans Section -->
+<section id="pricing" class="py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <h2 class="text-white text-4xl text-center text-font mb-16 text-glow" data-aos="fade-up">
+            Choose Your <span class="text-[#8446CF]">Right Plan</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Basic Plan -->
+            <div class="card-dark shadow-lg relative h-full box-glow" data-aos="fade-up">
+                <div class="pt-8 pb-4 px-6">
+                    <h3 class="text-white text-2xl text-font">Basic</h3>
+                </div>
+                
+                <div class="px-6 pb-4">
+                    <div class="mb-6">
+                        <div class="flex items-end">
+                            <span class="text-white text-3xl text-font">$0.00</span>
+                        </div>
+                        <p class="text-white/70 para mt-2">Free for our native token holders</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span class="text-white/80 para">Basic chart analysis</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span class="text-white/80 para">Limited market alerts</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span class="text-white/80 para">Standard trading signals</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span class="text-white/80 para">Community access</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="px-6 pb-6">
+                    <a href="#" class="btn-primary w-full text-center">
+                        Get Started Free
+                    </a>
+                </div>
+            </div>
+
+            <!-- Premium Plan -->
+            <div class="card-purple shadow-lg relative h-full" data-aos="fade-up" data-aos-delay="200">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#8446CF] text-white text-sm py-1 px-4 rounded-md text-font">
+                    Most Popular
+                </div>
+                
+                <div class="pt-8 pb-4 px-6">
+                    <h3 class="text-white text-2xl text-font">Premium</h3>
+                </div>
+                
+                <div class="px-6 pb-4">
+                    <div class="mb-6">
+                        <div class="flex items-end">
+                            <span class="text-white text-3xl text-font">$199</span>
+                            <span class="text-white/70 ml-1 text-font">/month</span>
+                        </div>
+                        <p class="text-white/70 para mt-2">Advanced features for serious traders</p>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span class="text-white/80 para">Advanced chart analysis</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span class="text-white/80 para">Real-time sentiment tracking</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span class="text-white/80 para">Whale movement alerts</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span class="text-white/80 para">Custom strategy builder</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span class="text-white/80 para">Automated trading</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span class="text-white/80 para">Priority support</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="px-6 pb-6">
+                    <a href="#" class="btn-secondary w-full text-center">
+                        Buy This Plan
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-12 text-center" data-aos="fade-up">
+            <p class="text-white/80 para">
+                All plans include access to our community and basic support.
+                <br>
+                Need a custom solution? <a href="#contact" class="text-[#8446CF] underline">Contact our sales team</a>.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section Removed as requested -->
+<!-- Join Revolution Section -->
+<section class="py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-font text-white text-3xl md:text-4xl mb-6 text-glow">
+                    Join the Revolution Today!
+                </h2>
+                
+                <p class="text-white/80 para mb-8">
+                    Start your journey with PipAI and unlock your trading potential. Our AI-powered platform is ready to help you trade smarter, faster, and more profitably in the cryptocurrency market.
+                </p>
+                
+                <a href="#" class="btn-primary">
+                    Get Started Now
+                </a>
+            </div>
+            
+            <div data-aos="fade-left">
+                <h3 class="text-font text-white text-2xl md:text-3xl mb-8 text-glow">
+                    Simple Steps to Begin
+                </h3>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8446CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        <div>
+                            <h4 class="text-white text-lg text-font mb-2">Visit PipAI Telegram Bot</h4>
+                            <p class="text-white/80 para">Connect with our bot on Telegram to get started immediately.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8446CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        <div>
+                            <h4 class="text-white text-lg text-font mb-2">Choose Your Subscription Plan</h4>
+                            <p class="text-white/80 para">Select from Free, Premium, or Enterprise options based on your needs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8446CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        <div>
+                            <h4 class="text-white text-lg text-font mb-2">Trade with Confidence</h4>
+                            <p class="text-white/80 para">Leverage AI-powered insights to make better trading decisions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Us Section -->
+<section id="contact" class="py-24 grid-bg">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <div data-aos="fade-up" class="card-purple shadow-lg overflow-hidden box-glow">
+            <div class="grid grid-cols-1 md:grid-cols-2 items-center p-8 md:p-12">
+                <div class="text-center md:text-left mb-8 md:mb-0">
+                    <h2 class="text-font text-white text-3xl md:text-4xl mb-4 text-glow">Have Questions?</h2>
+                    <p class="text-white/80 para">
+                        Our team is here to help. Reach out to us at support@pipai.com or join our Telegram support group for instant assistance.
+                    </p>
+                </div>
+                
+                <div class="flex justify-center md:justify-end">
+                    <a href="#" class="btn-secondary flex items-center gap-2">
+                        Join our Telegram 
+                        <i class="bi bi-telegram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="border-t border-[#333333] bg-black">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        <div class="py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <a href="/">
+                    <img src="/Logo.png" width="112" height="40" alt="PipAI Logo" class="mb-4">
+                </a>
+                <p class="text-white/80 para">PipAI – The Smarter Way to Trade Crypto.</p>
+            </div>
+            
+            <div>
+                <h3 class="text-white text-font text-lg mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="/" class="text-white/80 para hover:text-white transition-colors">Home</a></li>
+                    <li><a href="#features" class="text-white/80 para hover:text-white transition-colors">Features</a></li>
+                    <li><a href="#benefits" class="text-white/80 para hover:text-white transition-colors">Why Pip AI</a></li>
+                    <li><a href="#how-it-works" class="text-white/80 para hover:text-white transition-colors">How it Works</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-white text-font text-lg mb-4">Resources</h3>
+                <ul class="space-y-2">
+                    <li><a href="https://docs.pipai.io" class="text-white/80 para hover:text-white transition-colors">Whitepaper</a></li>
+                    <li><a href="#faq" class="text-white/80 para hover:text-white transition-colors">FAQ</a></li>
+                    <li><a href="#contact" class="text-white/80 para hover:text-white transition-colors">Support</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="py-6 border-t border-[#333333] flex flex-col md:flex-row justify-between items-center">
+            <p class="text-white/80 para mb-4 md:mb-0">© 2024 PipAI, All Rights Reserved.</p>
+            
+            <div class="flex space-x-4">
+                <a href="https://x.com/pipaitech">
+                    <i class="bi bi-twitter-x"></i>
+                </a>
+                    <a href="https://t.me/pipaitech">
+                    <i class="bi bi-telegram"></i>
+                    </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 1000,
+        once: true,
+    });
+
+    // Mobile Menu Toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+        document.getElementById('mobile-menu').classList.toggle('active');
+    });
+
+    // Screenshots Slider
+    const screenshots = document.querySelectorAll('.screenshot');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('prev-screenshot');
+    const nextBtn = document.getElementById('next-screenshot');
+    const captionEl = document.getElementById('screenshot-caption');
+    const descriptionEl = document.getElementById('screenshot-description');
+    
+    const screenshotData = [
+        {
+            caption: "AI-Powered Chart Analysis",
+            description: "PipAI identifies key support and resistance levels with precision"
+        },
+        {
+            caption: "Real-time Sentiment Analysis",
+            description: "Track market sentiment across social media and news sources"
+        },
+        {
+            caption: "Whale Movement Alerts",
+            description: "Get notified of significant wallet activities that impact markets"
+        },
+        {
+            caption: "Custom Strategy Builder",
+            description: "Create and backtest your personalized trading strategies"
+        }
+    ];
+    
+    let currentIndex = 0;
+    
+    function showScreenshot(index) {
+        screenshots.forEach(screenshot => {
+            screenshot.classList.remove('active');
+        });
+        
+        dots.forEach(dot => {
+            dot.classList.remove('active');
+        });
+        
+        screenshots[index].classList.add('active');
+        dots[index].classList.add('active');
+        
+        captionEl.textContent = screenshotData[index].caption;
+        descriptionEl.textContent = screenshotData[index].description;
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex === 0) ? screenshots.length - 1 : currentIndex - 1;
+        showScreenshot(currentIndex);
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex === screenshots.length - 1) ? 0 : currentIndex + 1;
+        showScreenshot(currentIndex);
+    });
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentIndex = index;
+            showScreenshot(currentIndex);
+        });
+    });
+
+    // Accordion
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            
+            // Toggle active class on header
+            header.classList.toggle('active');
+            
+            // Toggle content visibility
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+            } else {
+                content.classList.add('active');
+            }
+        });
+    });
+
+    // Tokenomics Chart
+    const tokenomicsData = [
+        { name: "Public Sale", value: 40, color: "#8446CF" },
+        { name: "Team & Advisors", value: 15, color: "#2D1B87" },
+        { name: "Marketing", value: 10, color: "#6A35B0" },
+        { name: "Development", value: 15, color: "#4A2599" },
+        { name: "Liquidity", value: 10, color: "#9A5DE0" },
+        { name: "Ecosystem Growth", value: 10, color: "#3D1E7A" }
+    ];
+
+    // Create a canvas element for the chart
+    const chartContainer = document.getElementById('tokenomics-chart');
+    const canvas = document.createElement('canvas');
+    canvas.id = 'tokenomics-pie-chart';
+    chartContainer.appendChild(canvas);
+
+    // Create the chart
+    const ctx = canvas.getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: tokenomicsData.map(item => item.name),
+            datasets: [{
+                data: tokenomicsData.map(item => item.value),
+                backgroundColor: tokenomicsData.map(item => item.color),
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        color: 'white',
+                        font: {
+                            family: 'para'
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: ${context.raw}%`;
+                        }
+                    },
+                    backgroundColor: '#0A0A0A',
+                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                    borderWidth: 1,
+                    titleColor: 'white',
+                    bodyColor: 'white',
+                    bodyFont: {
+                        family: 'para'
+                    },
+                    titleFont: {
+                        family: 'font'
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
+

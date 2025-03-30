@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PIP AI</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="shortcut icon" href="/logo-05.png" type="image/x-icon">
+    <meta name="description" content="Trade Smarter, Faster, and More Profitably 
+    ">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<style>
+    html, body{
+        overflow-x: hidden;
+    }
+    @font-face {
+        font-family: font;
+        src: url(/Conthrax-SemiBold.otf);
+    }
+    .text-font{
+        font-family: font;
+    }
+    @font-face {
+                                        font-family: para;
+                                        src: url(/raleway.regular.ttf);
+                                    }
+                                    .para{
+                                        font-family: para;
+                                    }
+</style>
+<body class="bg-[#050818]">
+    <section class="bg-[url('/bg-1.png')] bg-cover h-fit w-screen bg-center bg-no-repeat md:bg-cover">
+        <!-- Navbar -->
+        <nav class="bg-transparent text-white">
+            <div class="flex justify-between items-center py-6 md:p-12 mx-6 md:mx-8">
+                <!-- Logo -->
+                <div>
+                    <img src="./Logo.png" class="w-28" alt="Logo">
+                </div>
+        
+                <!-- Hamburger Menu (Mobile) -->
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+        
+                <!-- Navigation Links -->
+                <div id="nav-links" class="hidden md:flex space-x-4 text-font text-white">
+                    <ul class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                        <li><a href="#" class="text-[#8446CF] underline-offset-8 underline">Home</a></li>
+                        <li><a href="#abt">About</a></li>
+                        <li><a href="#why">Why Choose Us</a></li>
+                        <li><a href="#ben">Benefits</a></li>
+                        <li><a href="#how">How it Works</a></li>
+                    </ul>
+                </div>
+        
+                <!-- Contact Button -->
+                <div class="hidden md:block">
+             
+                    <a href="#" class="bg-gradient-to-r from-[#2D1B87] to-[#8445CE] text-font text-white px-8 border-[1px] border-[#fff] py-3 rounded-full transition-all duration-300 transform hover:scale-105">Contact us</a>
+             
+                </div>
+            </div>
+        
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden flex flex-col items-center space-y-4 py-4 bg-transparent">
+                <a href="#" class="hover:text-[#8446CF]">Home</a>
+                <li><a href="#abt">About</a></li>
+                <a href="#why" class="hover:text-[#8446CF]">Why Choose Us</a>
+                <a href="#ben" class="hover:text-[#8446CF]">Benefits</a>
+                <a href="#how" class="hover:text-[#8446CF]">How it Works</a>
+                <a href="#" class="bg-gradient-to-r from-[#2D1B87] to-[#8445CE] text-white px-8 border-[1px] border-[#fff] py-3 rounded-full text-font">Contact us</a>
+            </div>
+        </nav>
+        
+        <script>
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+        
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        </script>
+        
+        
+        <!-- Hero -->
+                <div class="pt-36 md:mt-0 md:py-32 px-2 md:px-28 mx-8 md:mx-8">
+                        <div class="flex justify-center items-center flex-col" data-aos="fade-up"
+                        data-aos-duration="3000">
+                            <h1 class="text-font md:text-5xl  text-4xl text-white text-center">Welcome to PiPAI
+                                Your Ultimate AI Trading <span class="text-[#8446CF]">Partner</span> </h1>
+                        </div>
+
+                        <div class="my-16 flex justify-center space-x-4 text-font" data-aos="fade-up"
+                        data-aos-duration="3000">
+                            <a href="#abt" class="px-5  md:px-8 text-center border-[1px] text-white border-[#fff] 
+                            bg-gradient-to-r from-[#2D1B87] to-[#8445CE] py-1 md:py-3 rounded-full">Let's Get Started</a>
+                           
+                            <a href="https://docs.pipai.io" class="text-[#8446CF] bg-white
+                             md:px-8 px-6 border-[1px] border-[#8446CF] text-center py-1 md:py-3 rounded-full">Learn More</a>
+                      
+                            </div>
+
+                </div>
+                </section>
+               <section class="">
+                    <div class="mx-6 md:mx-32 mt-32">
+
+                
+                    <div class="grid grid-cols-1 md:grid-cols-2 py-24 place-items-center">
+                        <div data-aos="fade-right"
+                        data-aos-duration="2000" id="abt">
+                            <h1 class="text-font text-white text-3xl md:text-4xl">Trade Smarter, Faster, and More Profitably 
+                                <span class="text-[#8446CF]">
+                                with PipAI
+                            </span>    </h1>
+                            <p class="mt-12 text-font text-md text-white">
+                                Are you ready to take your cryptocurrency trading
+                                 to the next level? Meet PipAI, an innovative AI-powered Telegram bot designed
+                                  to revolutionize how you trade. With PipAI, you get the perfect blend of advanced
+                                   artificial intelligence, cutting-edge analytics, and real-time execution, all within
+                                    the simplicity of your favorite messaging app.
+Whether you’re a seasoned trader or just starting out, PipAI provides the tools, insights, and automation 
+you need to succeed in the fast-paced world of crypto trading.
+
+                            </p>
+                        
+                        </div>
+                        <div  data-aos="fade-leftt"
+                        data-aos-duration="2000">
+                            <img src="/abt-1.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                </section>
+              <section class="bg-[url('/bg-2.png')] bg-cover h-fit w-screen bg-center bg-no-repeat md:bg-cover">
+                    <div class="mx-8 md:mx-32 py-20"  data-aos="fade-up"
+                    data-aos-duration="2000">             
+                    <h1 class="text-white text-4xl text-center text-font"  data-aos="fade-up"
+                    data-aos-duration="2000" id="why">
+                        Our Features <span class="text-[#8446CF]"> PiPAI?</span>
+                    </h1>
+                    <div class="grid grid-cols-1 md:grid-cols-3 place-items-center gap-6 py-12">
+                        <div  data-aos="fade-right"
+                        data-aos-duration="1000" class="px-2 bg-gradient-to-r from-[#060316] to-[#182341] border-[0.8px]
+                         border-white w-[100%] md:w-72 h-[480px] to-[#182341] rounded-xl shadow-md">
+                            <div class="ml-5 mt-5">
+                                <img src="/icon-1.png" class="mb-1 h-16" alt="">
+                              
+                            </div>
+                            <div class="ml-6">
+                                
+                                <p class="text-font text-white">Analyze And Predict with Precision</p>
+                                <ul class="list-disc my-6 text-white space-y-3" style="font-family: para;">
+                                    <li>Upload your charts or share links, and let PipAI handle the heavy lifting</li>
+                                    <li>
+                                        Advanced AI identifies key technical patterns, such as
+- Support & resistance levels.
+                                    </li>
+                                    <li>
+                                        RSI, MACD, trendlines, and more.
+                                    </li>
+                                    <li>
+                                        Get actionable predictions with confidence scores to stay ahead of the market.      
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div data-aos="fade-right"
+                        data-aos-duration="1000" class="px-2 bg-gradient-to-r from-[#8445CE] to-[#2D1B87] border-[0.8px]
+                        border-white w-[100%] md:w-72 h-[480px] to-[#182341] rounded-xl shadow-md">
+                           <div class="ml-5 mt-5">
+                               <img src="/icon-2.png" class="mb-1 h-16" alt="">
+                             
+                           </div>
+                           <div class="ml-6">
+                               
+                               <p class="text-font text-white">Stay Ahead with Sentiment Analysis</p>
+                               <ul class="list-disc my-6 text-white space-y-3" style="font-family: para;">
+                                   <li>PipAI scans social media and news platforms for real-time sentiment trends.</li>
+                                   <li>
+                                    Understand market mood and how it impacts price movements.
+                                   </li>
+                                   <li>
+                                    Receive sentiment-driven alerts to make informed decisions.
+                                    </li>
+                                 
+                               </ul>
+                           </div>
+                       </div>
+
+                       <div data-aos="fade-right"
+                       data-aos-duration="1000" class="px-2 bg-gradient-to-r from-[#060316] to-[#182341] border-[0.8px]
+                       border-white w-[100%] md:w-72 h-[480px] to-[#182341] rounded-xl shadow-md">
+                          <div class="ml-5 mt-5">
+                              <img src="/icon-3.png" class="mb-1 h-16" alt="">
+                            
+                          </div>
+                          <div class="ml-6">
+                              
+                              <p class="text-font text-white">Whale Tracking Alerts</p>
+                              <ul class="list-disc my-6 text-white space-y-3" style="font-family: para;">
+                                  <li>Get real-time notifications on significant wallet activities ("whale movements") that could impact the market.</li>
+                                  <li>
+                                    Understand large-scale buy or sell actions to anticipate major price swings.
+</li>
+                                
+                                  <li>
+                                    Leverage this data for strategic decision-making and timely actions.
+                                    </li>
+                              </ul>
+                          </div>
+                      </div>
+                      <div data-aos="fade-right"
+                      data-aos-duration="1000" class="px-2 bg-gradient-to-r from-[#8445CE] to-[#2D1B87] border-[0.8px]
+                        border-white w-[100%] md:w-72 h-[480px] to-[#182341] rounded-xl shadow-md">
+                           <div class="ml-5 mt-5">
+                               <img src="/icon-4.png" class="mb-1 h-16" alt="">
+                             
+                           </div>
+                           <div class="ml-6">
+                               
+                               <p class="text-font text-white">Customize Your Trading Strategy</p>
+                               <ul class="list-disc my-6 text-white space-y-3" style="font-family: para;">
+                                   <li>Set your preferences based on:
+                                    - Risk tolerance (low, medium, high).</li>
+                                   <li>
+                                    Timeframes (day trading, swing trading, or long-term investing).
+                                   </li>
+                                   <li>
+                                    Indicators you trust most.
+                                    </li>
+                                   <li>
+                                    PipAI generates and refines strategies tailored to your style.
+                                    </li>
+                               </ul>
+                           </div>
+                       </div>
+
+                       <div data-aos="fade-right"
+                       data-aos-duration="1000" class="px-2 bg-gradient-to-r from-[#060316] to-[#182341] border-[0.8px]
+                       border-white w-[100%] md:w-72 h-[480px] to-[#182341] rounded-xl shadow-md">
+                          <div class="ml-5 mt-5">
+                              <img src="/icon-5.png" class="mb-1 h-16" alt="">
+                            
+                          </div>
+                          <div class="ml-6">
+                              
+                              <p class="text-font text-white">Backtest Your Strategy with Ease</p>
+                              <ul class="list-disc my-6 text-white space-y-3" style="font-family: para;">
+                             <li>Simulate your strategy’s performance using historical market data.</li>
+                                  <li>
+                                    Review comprehensive reports, including ROI, win rates, and drawdowns.
+                                  </li>
+                                 <li>
+                                    Fine-tune your strategies for optimal performance.
+                                 </li>
+                              </ul>
+                          </div>
+                      </div>
+
+                      <div data-aos="fade-right"
+                      data-aos-duration="1000" class="px-2 bg-gradient-to-r from-[#8445CE] to-[#2D1B87] border-[0.8px]
+                      border-white w-[100%] md:w-72 h-[480px] to-[#182341] rounded-xl shadow-md">
+                         <div class="ml-5 mt-5">
+                             <img src="/icon-6.png" class="mb-1 h-16" alt="">
+                           
+                         </div>
+                         <div class="ml-6">
+                             
+                             <p class="text-font text-white">Execute Trades Automatically</p>
+                             <ul class="list-disc my-6 text-white space-y-3" style="font-family: para;">
+                              <li>Seamlessly connect PipAI to top exchanges like Binance, Coinbase, and KuCoin.</li>
+                                
+                              <li>
+                                Let PipAI trade for you based on your approved strategies.
+                              </li>
+                                <li>
+                                    Monitor trades and portfolio performance in real-time.
+                                </li>    
+                            </ul>
+                         </div>
+                     </div>
+
+                    </div>
+                    <div data-aos="fade-right"
+                    data-aos-duration="1000" class="m-auto px-2 bg-gradient-to-r from-[#060316] to-[#182341] border-[0.8px]
+                    border-white md:w-[100%] w-[100%] h-fit to-[#182341] rounded-xl shadow-lg">
+                       <div class="ml-5 mt-5">
+                           <img src="/icon-1.png" class="mb-1 h-16" alt="">
+                         
+                       </div>
+                       <div class="ml-6">
+                           
+                           <p class="text-font text-white">Analyze And Predict with Precision</p>
+                           <ul class="list-disc my-6 text-white space-y-3" style="font-family: para;">
+                               <li>Upload your charts or share links, and let PipAI handle the heavy lifting</li>
+                               <li>
+                                   Advanced AI identifies key technical patterns, such as
+- Support & resistance levels.
+                               </li>
+                               <li>
+                                   RSI, MACD, trendlines, and more.
+                               </li>
+                               <li>
+                                   Get actionable predictions with confidence scores to stay ahead of the market.      
+                               </li>
+                           </ul>
+                       </div>
+                   </div>
+                </div>
+                </section>
+                  <section class="bg-[url('/bg-4.png')] bg-cover h-fit w-screen bg-center bg-no-repeat md:bg-cover">
+                    <div class="mx-8 md:mx-32  py-20 ">      
+                        <h1 class="text-white text-4xl my-12 text-center text-font" data-aos="fade-center"
+                        data-aos-duration="3000" id="ben">
+                            Key <span class="text-[#8446CF]"> Benefits</span>
+                        </h1>     
+                        <div class="grid grid-cols-1 gap-y-4 place-items-center"> 
+                        <div data-aos="fade-up"
+                        data-aos-duration="1000" class=" px-2 bg-gradient-to-r from-[#060316] to-[#182341] border-[0.8px]
+                    border-white w-[100%] md:w-[100%] h-fit to-[#182341] rounded-xl shadow-lg">
+                       <div class="ml-5 mt-5">
+                           <img src="/b-1.png" class="mb-1 h-16" alt="">
+                         
+                       </div>
+                       <div class="ml-6">
+                           
+                           <p class="text-font text-white">AI That Learns with You</p>
+                           <ul class="list-disc my-6 text-white space-y-3" style="font-family: para;">
+                               <li>PipAI evolves over time, learning from user feedback and market data to deliver increasingly accurate insights and strategies.</li>
+                               <li>
+                                Upload your charts or share links, and let PipAI handle the heavy lifting
+                               </li>
+                               
+                           </ul>
+                       </div>
+                   </div>
+
+                   <div  data-aos="fade-up"
+                   data-aos-duration="1000" class=" px-2 bg-gradient-to-r from-[#8445CE] to-[#2D1B87]  border-[0.8px]
+                   border-white w-[100%]  md:w-[100%] h-fit to-[#182341] rounded-xl shadow-lg">
+                      <div class="ml-5 mt-5">
+                          <img src="/b-2.png" class="mb-1 h-16" alt="">
+                        
+                      </div>
+                      <div class="ml-6">
+                          
+                          <p class="text-font text-white">User-Friendly Interface</p>
+                          <ul class="list-disc my-6 text-white space-y-3" style="font-family: para;">
+                                <li>
+                                    Simple Telegram commands like /analyze_chart, /generate_strategy, and /portfolio_summary make trading effortless.
+                                </li>
+                                <li>Clean design with buttons and dropdowns ensures ease of use for traders of all levels.</li>
+                          </ul>
+                      </div>
+                  </div>
+                  
+                  <div  data-aos="fade-up"
+                  data-aos-duration="1000" class=" px-2 bg-gradient-to-r from-[#060316] to-[#182341] border-[0.8px]
+                  border-white w-[100%] md:w-[100%] h-fit to-[#182341] rounded-xl shadow-lg">
+                     <div class="ml-5 mt-5">
+                         <img src="/b-3.png" class="mb-1 h-16" alt="">
+                       
+                     </div>
+                     <div class="ml-6">
+                         
+                         <p class="text-font text-white">Security You Can Trust</p>
+                         <ul class="list-disc my-6 text-white space-y-3" style="font-family: para;">
+                          <li>
+                            Enjoy encrypted data storage and anonymized user data.
+                          </li>
+                          <li>
+                            Fully compliant with global trading regulations.
+                          </li>
+                         </ul>
+                     </div>
+                 </div>
+
+                </div> 
+                        </div>
+
+    </section>
+     <section class="bg-[url('/bg-5.png')] bg-cover h-fit w-screen bg-center bg-no-repeat md:bg-cover">
+        <div class="mx-8 md:mx-32 ">
+
+    
+        <div class="grid grid-cols-1 md:grid-cols-2 py-24 place-items-center">
+            <div  data-aos="fade-right"
+            data-aos-duration="1000">
+                <h1 class="text-font text-white text-3xl md:text-4xl">Built for Every 
+                    
+                    <span class="text-[#8446CF]">
+                        Trader
+                </span>    </h1>
+               
+                <p class="mt-12 para text-md text-white">
+                    <span class="text-[#8446CF] text-font"><strong>Beginners</strong> </span> <br>
+                    Learn trading concepts with PipAI’s interactive  
+                    interactive tutorials and mock trading features.
+
+                </p>
+                <p class="mt-12 para text-md text-white">
+                    <span class="text-[#8446CF] text-font"><strong>Advanced Traders</strong> </span> <br>
+                    Optimize your portfolio with sophisticated analytics and AI-driven automation.
+
+                </p>
+                <p class="mt-12 para text-md text-white">
+                    <span class="text-[#8446CF] text-font"><strong>Crypto Enthusiasts</strong> </span> <br>
+                    Leverage sentiment analysis and whale tracking to capture unique market opportunities.
+                </p>
+            
+            </div>
+            <div  data-aos="fade-left"
+            data-aos-duration="1000">
+                <img src="/abt-2.png" alt="">
+            </div>
+        </div>
+    </div>
+    </section>
+ <section class="bg-cover h-fit w-screen bg-center bg-no-repeat md:bg-cover">
+        <div class="mx-8 md:mx-32 ">
+
+    
+        <div class="grid grid-cols-1 md:grid-cols-2 py-24 place-items-center">
+            <div  data-aos="fade-left"
+            data-aos-duration="1000" id="how">
+                <img src="/abt-3.png" alt="">
+            </div>
+            <div  data-aos="fade-right"
+            data-aos-duration="1000">
+                <h1 class="text-font text-white text-3xl  md:text-4xl">How it 
+                    
+                    <span class="text-[#8446CF]">
+                        Works
+                </span>    </h1>
+               
+                <p class="mt-12 para text-md text-white">
+                    <span class="text-[#8446CF] text-font"><strong>Join PipAI on Telegram</strong> </span> <br>
+                    Start with a simple click to access the bot.
+
+                </p>
+                <p class="mt-12 para text-md text-white">
+                    <span class="text-[#8446CF] text-font"><strong>Set Up Your Preferences</strong> </span> <br>
+                    Tailor your trading strategies based on your goals.
+
+                </p>
+                <p class="mt-12 para text-md text-white">
+                    <span class="text-[#8446CF] text-font"><strong>Analyze, Strategize, and Trade</strong> </span> <br>
+                    Let PipAI handle analysis, strategy generation, and automated execution.
+                </p>
+                <p class="mt-12 para text-md text-white">
+                    <span class="text-[#8446CF] text-font"><strong>Monitor and Optimize</strong> </span> <br>
+                    Stay updated with real-time alerts and performance reports.
+                </p>
+            
+            </div>
+           
+        </div>
+    </div>
+    </section> 
+         <section class="bg-[url('/bg-2.png')] bg-cover h-fit w-screen bg-center bg-no-repeat md:bg-cover">
+        <div class="mx-8 md:mx-32 py-20 ">             
+        <h1 class="text-white text-3xl md:text-4xl text-center text-font"  data-aos="fade-up"
+        data-aos-duration="3000">
+            Choose Your <span class="text-[#8446CF]">Right Plan</span>
+        </h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 place-items-center gap-6 py-12">
+            <div  data-aos="fade-right"
+            data-aos-duration="1000" class="px-2 bg-gradient-to-r from-[#060316] to-[#182341] border-[0.8px]
+             border-white w-[100%] md:w-96 h-fit to-[#182341] rounded-xl shadow-md">
+               
+                <div class="p-5">
+                    <p class="text-white text-lg text-font">Basic</p>
+                    <p class="text-2xl text-font text-white">0.00</p>
+                    <div class="my-4">
+                        <a href="#" class="px-[30px]  md:px-8 text-center border-[1px] text-white border-[#fff] 
+                        bg-gradient-to-r from-[#2D1B87] to-[#8445CE] py-2 md:py-4 text-lg text-font rounded-full">Free</a>
+                       
+                    </div>
+                    <p class="text-white para"> <i class="bi bi-check-circle-fill"></i> Free for our native holder.</p>
+                </div>
+            </div>
+
+            <div data-aos="fade-right"
+            data-aos-duration="1000" class="px-2 bg-gradient-to-r from-[#8445CE] to-[#2D1B87] border-[0.8px]
+            border-white w-[100%] md:w-96 h-fit to-[#182341] rounded-xl shadow-md">
+            <div class="p-5">
+                <p class="text-white text-lg text-font">Premium</p>
+                <p class="text-2xl text-font text-white">$199/<span class="text-sm">monthly</span> </p>
+                <div class="my-4">
+                    <a href="#" class="px-[30px] md:px-8 text-center border-[1px] text-[#8445CE] border-[#fff] 
+                    bg-white py-2 md:py-4 text-lg text-font rounded-full">Buy this plan</a>
+                   
+                </div>
+                <p class="text-white para"> <i class="bi bi-check-circle-fill"></i> Monthly subscription.</p>
+            </div>
+           </div>
+
+          
+
+        </div>
+    </section>
+  <section class="bg-[url('/bg-6.png')] bg-cover h-fit w-screen bg-center bg-no-repeat md:bg-cover">
+        <div class="mx-8 md:mx-32 ">
+
+    
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-24 place-items-center">
+            <div  data-aos="fade-left"
+            data-aos-duration="1000">
+                <h1 class="text-font text-white text-3xl  md:text-4xl">Join the Revolution Today!
+                   </h1>
+               
+                <p class="mt-12 para text-md text-white para">
+                    Start your journey with PipAI and unlock your trading potential.
+
+                </p>
+               
+            </div>
+            <div  data-aos="fade-right"
+            data-aos-duration="1000">
+                <h1 class="text-font text-white text-2xl  md:text-4xl">Get Started Now
+                </h1>
+            
+             <p class="mt-12 para text-md text-white">
+               <i class="bi bi-check-circle-fill  mr-1 para"></i>
+               Visit [PipAI Telegram Bot](#).
+             </p>
+             <p class="mt-12 para text-md text-white">
+                <i class="bi bi-check-circle-fill mr-1 para"></i>
+                Choose your subscription plan: Free, Premium, or Pro.
+              </p>
+              <p class="mt-12 para text-md text-white">
+                <i class="bi bi-check-circle-fill mr-1 para"></i>
+                Trade with confidence and precision like never before.
+              </p>
+            </div>
+        </div>
+    </div>
+    </section>
+
+     <section class=" bg-cover h-fit w-screen bg-center bg-no-repeat md:bg-cover">
+        <div class="mx-8 md:mx-32  py-20 ">      
+              
+            <div class="grid grid-cols-1 gap-y-4 place-items-center"  data-aos="fade-up"
+            data-aos-duration="1000"> 
+           
+
+       <div class="px-2 bg-gradient-to-r from-[#8445CE] to-[#2D1B87]  border-[0.8px]
+       border-white md:w-[1100px] w-[100%] h-fit to-[#182341] rounded-2xl shadow-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 place-items-center mx-3 md:mx-12 p-3 md:p-6">
+       <div class="md:ml-5 md:mt-5 text-center md:text-start mt-4 md:mt-0">
+              <h1 class="text-font text-white text-3xl md:text-4xl">Have Questions?</h1>
+              <br>
+              <p class="para text-center md:text-start text-white">
+                Our team is here to help. Reach out to us at *support@pipai.com or join our Telegram support group for instant assistance.
+              </p>
+          </div>
+          <div >
+              
+             <div class="flex my-3 md:my-0 justify-center text-center items-center">
+                <a href="https://t.me/pipaitech" class="text-[#8446CF] bg-white
+                md:px-20 px-5 border-[1px] border-[#8446CF] text-[#8446CF] text-font text-center py-1 md:py-3 rounded-full">
+            Join our  telegram <i class="bi bi-telegram text-xl "></i></a>
+         
+             </div>
+          </div>
+
+        </div>
+      </div>
+    
+
+    </div> 
+            </div>
+
+</section>
+
+    <footer class="border-t-[0.3px] border-[#fff]">
+        <div class="p-12 grid-cols-1 text-start md:text-start md:grid-cols-3 grid place-items-start">
+            <div>
+                <div class="flex justify-start md:justify-start">
+                    <img src="/Logo.png" alt="">
+                </div>
+                <p class="my-4 para text-white">PipAI – The Smarter Way to Trade Crypto.</p>
+            </div>
+            <div>
+                <h2 class="text-white text-font text-lg">Quick Links</h2>
+                <ul class="text-white para">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#abt">About</a></li>
+                    <li><a href="#why">Why Choose Us</a></li>
+                    <li><a href="#key">Key Benefits</a></li>
+                </ul>
+            </div>
+            <div>
+            
+                <ul class="text-white para">
+                    <li><a href="https://docs.pipai.io">Whitepaper</a></li>
+                   
+                </ul>
+            </div>
+        </div>
+        <div class="mx-6 md:mx-32 py-2 border-t-[0.2px]  border-[#ccc] flex justify-between items-center">
+            <div>
+                <p class="para text-white">
+                    c 2024 PipAI, All Right Reserved.
+                </p>
+            </div>
+
+            <div class="flex space-x-4 text-white">
+                <a href="https://x.com/pipaitech">
+                <i class="bi bi-twitter-x"></i>
+            </a>
+                <a href="https://t.me/pipaitech">
+                <i class="bi bi-telegram"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+      </script>
+</body>
+</html> 
